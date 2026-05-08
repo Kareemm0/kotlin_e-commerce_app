@@ -1,5 +1,6 @@
 package com.example.kotline_commerceapplication.Presentation.Screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,9 +12,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Component.CustomAppImage
 import com.example.kotline_commerceapplication.Core.Extensions.H
 import com.example.kotline_commerceapplication.Presentation.component.AuthHeaderText
@@ -27,6 +30,7 @@ fun LoginScreen(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     Column(
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
             .fillMaxSize()
             .fillMaxWidth()
@@ -59,6 +63,9 @@ fun LoginScreen(
                 Text("Enter Your Password")
             },
         )
+        30.H
+
+        CustomAppButton({} , text = "Login")
 
     }
 }

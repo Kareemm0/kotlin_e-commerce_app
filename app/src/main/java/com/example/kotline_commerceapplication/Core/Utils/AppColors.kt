@@ -6,4 +6,6 @@ import android.provider.CalendarContract
 object AppColors {
 
     val transparent = Color.Transparent;
+    val primaryColor = Color(0xff8FA3BF) ;
+    val whiteColor  = Color.White ;
 }
