@@ -24,7 +24,7 @@ fun CustomAuthText(
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = if (isLogin) "Don't Have An Account ? " else "Already Have An Account"
+            text = if (isLogin) "Don't Have An Account ? " else "Already Have An Account ? "
         )
         Text(
             if (isLogin) "Sign Up" else "Sign In",

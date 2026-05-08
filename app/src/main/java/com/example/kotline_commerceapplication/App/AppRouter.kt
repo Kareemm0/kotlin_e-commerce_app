@@ -13,6 +13,6 @@ fun AppRouter(){
 
     NavHost(navController = navController ,startDestination = Routes.Login.route){
         composable(route = Routes.Login.route){ LoginScreen(navController) }
-        composable(route = Routes.SignUp.route){ SignUpScreen() }
+        composable(route = Routes.SignUp.route){ SignUpScreen(navController) }
     }
 }
