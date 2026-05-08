@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Component.CustomAppImage
 import com.example.kotline_commerceapplication.Core.Extensions.H
@@ -26,7 +27,7 @@ import com.example.kotline_commerceapplication.R
 
 @Composable
 fun LoginScreen(
-
+    controller: NavController
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -69,7 +70,7 @@ fun LoginScreen(
         30.H
         CustomAppButton({}, text = "Login")
         16.H
-        CustomAuthText()
+        CustomAuthText(navigatorController = controller)
 
     }
 }
