@@ -20,6 +20,7 @@ import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Component.CustomAppImage
 import com.example.kotline_commerceapplication.Core.Extensions.H
 import com.example.kotline_commerceapplication.Presentation.component.AuthHeaderText
+import com.example.kotline_commerceapplication.Presentation.component.CustomAuthText
 import com.example.kotline_commerceapplication.Presentation.component.CustomTextFormFiled
 import com.example.kotline_commerceapplication.R
 
@@ -42,9 +43,11 @@ fun LoginScreen(
             "Welcome Back , Sign In "
         )
         24.H
-        CustomAppImage(R.drawable.login, "", Modifier
-            .fillMaxWidth()
-            .height(250.dp))
+        CustomAppImage(
+            R.drawable.login, "", Modifier
+                .fillMaxWidth()
+                .height(250.dp)
+        )
         16.H
         /// Email Filed
         CustomTextFormFiled(
@@ -64,8 +67,9 @@ fun LoginScreen(
             },
         )
         30.H
-
-        CustomAppButton({} , text = "Login")
+        CustomAppButton({}, text = "Login")
+        16.H
+        CustomAuthText()
 
     }
 }
