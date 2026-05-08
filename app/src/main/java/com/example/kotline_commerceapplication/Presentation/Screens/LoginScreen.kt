@@ -1,5 +1,6 @@
 package com.example.kotline_commerceapplication.Presentation.Screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,11 +16,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kotline_commerceapplication.App.Routes
 import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Component.CustomAppImage
 import com.example.kotline_commerceapplication.Core.Extensions.H
+import com.example.kotline_commerceapplication.Core.Utils.AppColors
 import com.example.kotline_commerceapplication.Presentation.component.AuthHeaderText
 import com.example.kotline_commerceapplication.Presentation.component.CustomAuthText
 import com.example.kotline_commerceapplication.Presentation.component.CustomTextFormFiled
@@ -66,6 +71,17 @@ fun LoginScreen(
             placeholder = {
                 Text("Enter Your Password")
             },
+        )
+        8.H
+        Text(
+            "Forget Password ? ", textAlign = TextAlign.Right,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = {
+                    controller.navigate(Routes.ForgetPassword.route)
+                }),
+            color = AppColors.primaryColor,
+            fontWeight = FontWeight.W700
         )
         30.H
         CustomAppButton({}, text = "Login")
