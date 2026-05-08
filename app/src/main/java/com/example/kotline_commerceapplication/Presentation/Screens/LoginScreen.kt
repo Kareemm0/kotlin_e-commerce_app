@@ -25,6 +25,7 @@ fun LoginScreen(
 
 ) {
     var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,15 +42,23 @@ fun LoginScreen(
             .fillMaxWidth()
             .height(250.dp))
         16.H
+        /// Email Filed
         CustomTextFormFiled(
             email,
             onValueChange = { email = it },
             placeholder = {
-                Text("Enter Your Email Address", color = Color.Black)
+                Text("Enter Your Email Address")
             },
         )
         16.H
-
+        /// Password Felid
+        CustomTextFormFiled(
+            password,
+            onValueChange = { password = it },
+            placeholder = {
+                Text("Enter Your Password")
+            },
+        )
 
     }
 }
