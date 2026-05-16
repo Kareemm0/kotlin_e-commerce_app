@@ -24,10 +24,14 @@ import com.example.kotline_commerceapplication.Presentation.component.CustomText
 import com.example.kotline_commerceapplication.R
 
 @Composable
-fun ForgetPasswordScreen(
+
+fun ResetPasswordScreen(
     navController: NavController
-) {
-    var email by remember { mutableStateOf("") }
+){
+
+    var password  by remember { mutableStateOf("") }
+    var confirmPassword  by remember { mutableStateOf("") }
+
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -38,26 +42,34 @@ fun ForgetPasswordScreen(
             )
     ) {
         AuthHeaderText(
-            "Forget Password ?"
+            "Enter New Password "
         )
         30.H
         CustomAppImage(
-            R.drawable.forgetpassword, "", Modifier
+            R.drawable.reset_password, "", Modifier
                 .fillMaxWidth()
                 .height(250.dp)
         )
         16.H
-        /// Email Filed
+        /// Password Filed
         CustomTextFormFiled(
-            email,
-            onValueChange = { email = it },
+            password,
+            onValueChange = { password = it },
             placeholder = {
-                Text("Enter Your Email Address")
+                Text("Enter New Password ")
+            },
+        )
+        16.H
+        CustomTextFormFiled(
+            confirmPassword,
+            onValueChange = { confirmPassword = it },
+            placeholder = {
+                Text("Confirm New Password ")
             },
         )
         30.H
         CustomAppButton({
-navController.navigate(Routes.ResetPassword.route)
+            navController.navigate(Routes.Login.route)
         }, text = "Submit")
     }
 }
