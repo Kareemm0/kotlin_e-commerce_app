@@ -8,15 +8,17 @@ import com.example.kotline_commerceapplication.Presentation.Screens.ForgetPasswo
 import com.example.kotline_commerceapplication.Presentation.Screens.LoginScreen
 import com.example.kotline_commerceapplication.Presentation.Screens.ResetPasswordScreen
 import com.example.kotline_commerceapplication.Presentation.Screens.SignUpScreen
+import com.example.kotline_commerceapplication.Presentation.Screens.SplashScreen
 
 @Composable
 fun AppRouter(){
     val navController = rememberNavController()
 
-    NavHost(navController = navController ,startDestination = Routes.Login.route){
+    NavHost(navController = navController ,startDestination = Routes.Splash.route){
         composable(route = Routes.Login.route){ LoginScreen(navController) }
         composable(route = Routes.SignUp.route){ SignUpScreen(navController) }
         composable(route = Routes.ForgetPassword.route){ ForgetPasswordScreen(navController )}
         composable(Routes.ResetPassword.route){ ResetPasswordScreen(navController) }
+        composable(Routes.Splash.route){ SplashScreen(navController) }
     }
 }
