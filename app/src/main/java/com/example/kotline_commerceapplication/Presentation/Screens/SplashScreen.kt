@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import com.example.kotline_commerceapplication.App.Routes
 import com.example.kotline_commerceapplication.Core.Component.CustomAppImage
 import com.example.kotline_commerceapplication.R
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
 
 @Composable
@@ -21,7 +20,7 @@ fun  SplashScreen(
     LaunchedEffect(Unit)
     {
         delay(2000)
-        navController.navigate(Routes.Login.route)
+        navController.navigate(Routes.Onboarding.route)
     }
     Box(modifier = Modifier.fillMaxWidth().fillMaxHeight()){
         CustomAppImage(R.drawable.app_logo ,"" , Modifier.padding(

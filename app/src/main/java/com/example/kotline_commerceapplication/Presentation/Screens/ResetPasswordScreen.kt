@@ -70,6 +70,6 @@ fun ResetPasswordScreen(
         30.H
         CustomAppButton({
             navController.navigate(Routes.Login.route)
-        }, text = "Submit")
+        }, text = "Submit",modifier = Modifier.fillMaxWidth())
     }
 }

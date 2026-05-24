@@ -58,6 +58,6 @@ fun ForgetPasswordScreen(
         30.H
         CustomAppButton({
 navController.navigate(Routes.ResetPassword.route)
-        }, text = "Submit")
+        }, text = "Submit" , modifier = Modifier.fillMaxWidth())
     }
 }

@@ -66,7 +66,7 @@ fun SignUpScreen(
             },
         )
         30.H
-        CustomAppButton(onClick = {} , text = "Sign Up ")
+        CustomAppButton(onClick = {} , text = "Sign Up ",modifier = Modifier.fillMaxWidth())
         30.H
         CustomAuthText(isLogin = false , navigatorController = controller)
     }

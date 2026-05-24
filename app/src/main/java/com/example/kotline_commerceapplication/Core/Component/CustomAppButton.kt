@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,25 +23,24 @@ import com.example.kotline_commerceapplication.Core.Utils.AppColors
 fun CustomAppButton(
     onClick: () -> Unit,
     text: String,
+    modifier: Modifier ,
+    textColor: Color = AppColors.whiteColor ,
+    containerColor: Color = AppColors.primaryColor
 ) {
 
     Button(
+        modifier = modifier,
         contentPadding = PaddingValues( vertical = 12.dp),
         shape = RoundedCornerShape(24.dp),
         colors = ButtonDefaults.buttonColors(
-            AppColors.primaryColor
+            containerColor
         ),
         onClick = onClick,
         enabled = true,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick)
-
-
     ) {
         Text(
             text = text,
-            color = AppColors.whiteColor, fontSize = 18.sp, fontWeight = FontWeight.W700,
+            color = textColor, fontSize = 18.sp, fontWeight = FontWeight.W700,
         )
     }
 }

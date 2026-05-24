@@ -6,11 +6,12 @@ plugins {
 
 android {
     namespace = "com.example.kotline_commerceapplication"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.example.kotline_commerceapplication"
         minSdk = 28
+        //noinspection OldTargetApi
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -19,6 +20,11 @@ android {
     }
 
     buildTypes {
+        buildTypes {
+            debug {
+                isMinifyEnabled = false
+            }
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
