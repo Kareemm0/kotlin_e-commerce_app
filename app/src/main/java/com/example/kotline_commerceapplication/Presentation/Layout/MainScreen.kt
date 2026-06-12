@@ -41,9 +41,10 @@ fun MainScreen(
                 modifier = Modifier.padding(paddingValues)
             ) {
                 composable(route = Routes.Home.route) { HomeScreen() }
+                composable(route = Routes.Cart.route) { CartScreen() }
                 composable(route = Routes.Favorite.route) { FavoriteScreen() }
                 composable(route = Routes.Settings.route) { SettingsScreen() }
-                composable(route = Routes.Cart.route) { CartScreen() }
+
             }
         },
         bottomBar = {
