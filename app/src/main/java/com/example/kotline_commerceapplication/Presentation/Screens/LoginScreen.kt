@@ -82,7 +82,9 @@ fun LoginScreen(
             fontWeight = FontWeight.W700
         )
         30.H
-        CustomAppButton({}, text = "Login",modifier = Modifier.fillMaxWidth())
+        CustomAppButton({
+            controller.navigate(Routes.Main.route)
+        }, text = "Login",modifier = Modifier.fillMaxWidth())
         16.H
         CustomAuthText(navigatorController = controller)
 

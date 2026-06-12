@@ -7,5 +7,10 @@ sealed class Routes(val route: String) {
     object ForgetPassword : Routes("forgetPassword_screen")
     object ResetPassword : Routes("resetPassword_screen")
     object Onboarding: Routes("Onboarding_screen")
+    object Main: Routes("MainScreen")
+    object Home: Routes("HomeScreen")
+    object Favorite: Routes("FavoriteScreen")
+    object Settings: Routes("SettingsScreen")
+    object Cart: Routes("CartScreen")
 
 }
