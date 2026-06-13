@@ -8,8 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.kotline_commerceapplication.Core.Extensions.H
+import com.example.kotline_commerceapplication.Presentation.component.CustomCategoryList
 import com.example.kotline_commerceapplication.Presentation.component.CustomHomTopBarComponent
 import com.example.kotline_commerceapplication.Presentation.component.CustomTextFormFiled
+import com.example.kotline_commerceapplication.R
 
 @Composable
 
@@ -32,6 +34,13 @@ fun HomeScreen() {
                     },
                     value = "",
                     onValueChange = {}
+                )
+                16.H
+                CustomCategoryList(
+                    itemCount = 10,
+                    categoryImage = R.drawable.category,
+                    categoryText = "Category",
+                    onClick = {}
                 )
 
             }
