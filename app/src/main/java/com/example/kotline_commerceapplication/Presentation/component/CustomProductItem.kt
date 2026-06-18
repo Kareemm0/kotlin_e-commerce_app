@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,13 +31,14 @@ fun CustomProductItem(
     addOnClick: () -> Unit,
     productName: String,
     productDescription: String,
-    productPrice: String
+    productPrice: String,
+    isShown: Boolean = true
 
 ) {
     Row(
         modifier = Modifier
             .padding(vertical = 4.dp)
-            .fillMaxWidth()
+
     ) {
         Box(
             modifier = Modifier
@@ -52,7 +52,7 @@ fun CustomProductItem(
                     )
 
                 )
-                Column(
+                if (isShown) Column(
                     verticalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier
                         .fillMaxHeight()

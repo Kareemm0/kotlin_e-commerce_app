@@ -65,4 +65,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.navigation.compose.v277)
     implementation(libs.lottie)
+    implementation(libs.androidx.compose.material.icons.extended)
 }
