@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 import com.example.kotline_commerceapplication.Core.Extensions.H
 import com.example.kotline_commerceapplication.Presentation.component.CustomProductItem
 import com.example.kotline_commerceapplication.Presentation.component.CustomTopBar
-import com.example.kotline_commerceapplication.R
 
 @Composable
 
@@ -23,15 +22,9 @@ fun FavoriteScreen() {
                 item {
                     40.H
                 }
-                items(100) {
+                item {
                     CustomProductItem(
-                        productImage = R.drawable.product,
-                        favoriteOnClick = {},
-                        addOnClick = {},
-                        productName = "Product Name",
-                        productDescription = "Product Description",
-                        productPrice = "Product Price",
-                        productImageDescription = "Product Image"
+
                     )
                 }
 

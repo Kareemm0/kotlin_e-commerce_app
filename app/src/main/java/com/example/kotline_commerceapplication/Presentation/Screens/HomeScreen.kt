@@ -26,6 +26,8 @@ import kotlinx.coroutines.delay
 @Composable
 
 fun HomeScreen() {
+
+
     val banners = listOf(R.drawable.banner, R.drawable.banner, R.drawable.banner)
     val bannerCount = banners.size
 
@@ -35,6 +37,7 @@ fun HomeScreen() {
 
 
     LaunchedEffect(Unit) {
+
         while (true) {
             delay(3000)
 
@@ -42,6 +45,8 @@ fun HomeScreen() {
 
             pagerState.animateScrollToPage(nextPage)
         }
+
+
     }
     Scaffold(
         modifier = Modifier.padding(vertical = 20.dp, horizontal = 16.dp),
@@ -96,16 +101,8 @@ fun HomeScreen() {
                     )
                 }
                 item { 16.H }
-                items(100) {
-                    CustomProductItem(
-                        productImage = R.drawable.product,
-                        favoriteOnClick = {},
-                        addOnClick = {},
-                        productName = "Product Name",
-                        productDescription = "Product Description",
-                        productPrice = "Product Price",
-                        productImageDescription = "Product Image"
-                    )
+                item {
+                    CustomProductItem()
                 }
             }
 

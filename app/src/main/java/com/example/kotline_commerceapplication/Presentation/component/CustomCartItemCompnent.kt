@@ -48,16 +48,7 @@ fun CustomCartItemComponent(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                CustomProductItem(
-                    productImage = image,
-                    favoriteOnClick = favoriteOnClick,
-                    addOnClick = addOnClick,
-                    productName = productName,
-                    productDescription = productDescription,
-                    productPrice = productPrice,
-                    productImageDescription = productImageDescription,
-                    isShown = false
-                )
+                CustomProductItem(isShown = false)
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(24.dp))
