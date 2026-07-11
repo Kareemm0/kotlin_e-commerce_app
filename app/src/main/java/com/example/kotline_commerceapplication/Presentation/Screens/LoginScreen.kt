@@ -1,5 +1,6 @@
 package com.example.kotline_commerceapplication.Presentation.Screens
 
+import android.util.Patterns
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -63,8 +64,15 @@ fun LoginScreen(
                 Text("Enter Your Email Address")
             },
             isError = isEmailError.isNotEmpty(),
-
-            )
+            supportingText = {
+                if (isEmailError.isNotEmpty()) {
+                    Text(
+                        text = isEmailError,
+                        color = AppColors.red
+                    )
+                }
+            }
+        )
         16.H
         /// Password Felid
         CustomTextFormFiled(
@@ -74,8 +82,15 @@ fun LoginScreen(
                 Text("Enter Your Password")
             },
             isError = isPasswordError.isNotEmpty(),
-
-            )
+            supportingText = {
+                if (isPasswordError.isNotEmpty()) {
+                    Text(
+                        text = isPasswordError,
+                        color = AppColors.red
+                    )
+                }
+            }
+        )
         8.H
         Text(
             "Forget Password ? ", textAlign = TextAlign.Right,
@@ -89,7 +104,22 @@ fun LoginScreen(
         )
         30.H
         CustomAppButton({
-            controller.navigate(Routes.Main.route)
+            isEmailError = if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                "Email is required"
+            } else {
+                ""
+            }
+            isPasswordError = if (password.length < 8) {
+                "Password must be at least 8 characters"
+            } else {
+                ""
+            }
+
+            if (isEmailError.isEmpty() && isPasswordError.isEmpty()) {
+                controller.navigate(Routes.Main.route)
+            }
+
+
         }, text = "Login", modifier = Modifier.fillMaxWidth())
         16.H
         CustomAuthText(navigatorController = controller)
