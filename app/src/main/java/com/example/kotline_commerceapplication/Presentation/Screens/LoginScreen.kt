@@ -34,6 +34,8 @@ fun LoginScreen(
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var isEmailError by remember { mutableStateOf("") }
+    var isPasswordError by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -60,7 +62,9 @@ fun LoginScreen(
             placeholder = {
                 Text("Enter Your Email Address")
             },
-        )
+            isError = isEmailError.isNotEmpty(),
+
+            )
         16.H
         /// Password Felid
         CustomTextFormFiled(
@@ -69,7 +73,9 @@ fun LoginScreen(
             placeholder = {
                 Text("Enter Your Password")
             },
-        )
+            isError = isPasswordError.isNotEmpty(),
+
+            )
         8.H
         Text(
             "Forget Password ? ", textAlign = TextAlign.Right,
@@ -84,7 +90,7 @@ fun LoginScreen(
         30.H
         CustomAppButton({
             controller.navigate(Routes.Main.route)
-        }, text = "Login",modifier = Modifier.fillMaxWidth())
+        }, text = "Login", modifier = Modifier.fillMaxWidth())
         16.H
         CustomAuthText(navigatorController = controller)
 

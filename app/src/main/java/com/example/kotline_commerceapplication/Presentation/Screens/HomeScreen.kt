@@ -68,8 +68,10 @@ fun HomeScreen() {
                             Text("Search")
                         },
                         value = "",
-                        onValueChange = {}
-                    )
+                        onValueChange = {},
+                        isError = false,
+
+                        )
                 }
                 item { 16.H }
                 item {

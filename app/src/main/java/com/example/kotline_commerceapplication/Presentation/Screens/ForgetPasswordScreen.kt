@@ -28,6 +28,7 @@ fun ForgetPasswordScreen(
     navController: NavController
 ) {
     var email by remember { mutableStateOf("") }
+    var isEmailError by remember { mutableStateOf("") }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -54,10 +55,12 @@ fun ForgetPasswordScreen(
             placeholder = {
                 Text("Enter Your Email Address")
             },
-        )
+            isError = isEmailError.isNotEmpty(),
+            
+            )
         30.H
         CustomAppButton({
-navController.navigate(Routes.ResetPassword.route)
-        }, text = "Submit" , modifier = Modifier.fillMaxWidth())
+            navController.navigate(Routes.ResetPassword.route)
+        }, text = "Submit", modifier = Modifier.fillMaxWidth())
     }
 }

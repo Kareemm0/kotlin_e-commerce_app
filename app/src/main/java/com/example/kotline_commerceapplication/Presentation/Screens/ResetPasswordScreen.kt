@@ -27,10 +27,12 @@ import com.example.kotline_commerceapplication.R
 
 fun ResetPasswordScreen(
     navController: NavController
-){
+) {
 
-    var password  by remember { mutableStateOf("") }
-    var confirmPassword  by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+    var isPasswordError by remember { mutableStateOf("") }
+    var isConfirmPasswordError by remember { mutableStateOf("") }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -58,7 +60,9 @@ fun ResetPasswordScreen(
             placeholder = {
                 Text("Enter New Password ")
             },
-        )
+            isError = isPasswordError.isNotEmpty(),
+
+            )
         16.H
         CustomTextFormFiled(
             confirmPassword,
@@ -66,10 +70,12 @@ fun ResetPasswordScreen(
             placeholder = {
                 Text("Confirm New Password ")
             },
-        )
+            isError = isConfirmPasswordError.isNotEmpty(),
+
+            )
         30.H
         CustomAppButton({
             navController.navigate(Routes.Login.route)
-        }, text = "Submit",modifier = Modifier.fillMaxWidth())
+        }, text = "Submit", modifier = Modifier.fillMaxWidth())
     }
 }
