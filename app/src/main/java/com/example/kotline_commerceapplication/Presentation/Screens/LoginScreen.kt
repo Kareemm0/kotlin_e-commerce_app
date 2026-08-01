@@ -75,7 +75,9 @@ fun LoginScreen(
         )
         16.H
         /// Password Felid
+
         CustomTextFormFiled(
+
             password,
             onValueChange = { password = it },
             placeholder = {
@@ -89,7 +91,8 @@ fun LoginScreen(
                         color = AppColors.red
                     )
                 }
-            }
+            },
+            isPassword = false,
         )
         8.H
         Text(
@@ -123,6 +126,7 @@ fun LoginScreen(
         }, text = "Login", modifier = Modifier.fillMaxWidth())
         16.H
         CustomAuthText(navigatorController = controller)
+
 
     }
 }

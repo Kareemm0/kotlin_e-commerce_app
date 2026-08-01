@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.material3.OutlinedSecureTextField
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.kotline_commerceapplication.Core.Utils.AppColors
@@ -28,25 +31,46 @@ fun CustomTextFormFiled(
         .background(AppColors.transparent),
     isError: Boolean = false,
     supportingText: @Composable (() -> Unit)? = null,
+    isPassword: Boolean = true
 ) {
-    OutlinedTextField(
-        shape = RoundedCornerShape(24),
-        colors = OutlinedTextFieldDefaults.colors(
-            errorTextColor = AppColors.red,
-            errorBorderColor = AppColors.red
+    if (isPassword) {
+        OutlinedTextField(
+            shape = RoundedCornerShape(24),
+            colors = OutlinedTextFieldDefaults.colors(
+                errorTextColor = AppColors.red,
+                errorBorderColor = AppColors.red
 
-        ),
-        value = value,
-        onValueChange = { onValueChange(it) },
-        modifier = modifier,
-        suffix = suffix,
-        prefix = prefix,
-        keyboardActions = keyboardActions,
-        keyboardOptions = keyboardOptions,
-        maxLines = maxLines,
-        label = label,
-        placeholder = placeholder,
-        isError = isError,
-        supportingText = supportingText
-    )
+            ),
+            value = value,
+            onValueChange = { onValueChange(it) },
+            modifier = modifier,
+            suffix = suffix,
+            prefix = prefix,
+            keyboardActions = keyboardActions,
+            keyboardOptions = keyboardOptions,
+            maxLines = maxLines,
+            label = label,
+            placeholder = placeholder,
+            isError = isError,
+            supportingText = supportingText
+        )
+    } else {
+        OutlinedSecureTextField(
+            shape = RoundedCornerShape(24),
+            placeholder = placeholder,
+            modifier = modifier,
+            suffix = suffix,
+            prefix = prefix,
+            isError = isError,
+            state = TextFieldState(),
+            supportingText = {
+                if (isError) {
+                    Text(
+                        text = "Password must be at least 8 characters",
+                        color = AppColors.red
+                    )
+                }
+            }
+        )
+    }
 }

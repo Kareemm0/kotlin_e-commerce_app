@@ -125,6 +125,7 @@ fun SignUpScreen(
         16.H
         /// Password Felid
         CustomTextFormFiled(
+            isPassword = false,
             value = password,
             onValueChange = { password = it },
             placeholder = {
