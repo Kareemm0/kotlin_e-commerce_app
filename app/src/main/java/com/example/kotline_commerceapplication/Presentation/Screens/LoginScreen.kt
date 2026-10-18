@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,9 +39,11 @@ fun LoginScreen(
     var password by remember { mutableStateOf("") }
     var isEmailError by remember { mutableStateOf("") }
     var isPasswordError by remember { mutableStateOf("") }
+    val scroll = rememberScrollState()
     Column(
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier
+
+        modifier = Modifier.verticalScroll(scroll)
             .fillMaxSize()
             .fillMaxWidth()
             .padding(
@@ -119,9 +123,9 @@ fun LoginScreen(
             }
 
             if (isEmailError.isEmpty() && isPasswordError.isEmpty()) {
-                controller.navigate(Routes.Main.route)
             }
 
+            controller.navigate(Routes.Main.route)
 
         }, text = "Login", modifier = Modifier.fillMaxWidth())
         16.H

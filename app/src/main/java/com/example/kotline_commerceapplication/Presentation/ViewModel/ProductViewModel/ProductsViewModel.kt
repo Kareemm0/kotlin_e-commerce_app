@@ -39,6 +39,8 @@ class ProductsViewModel : ViewModel() {
                 response.body()?.let {
                     state = it.items
                     uiState = ProductsUiStates.Success(state)
+
+                    println("============${it.items}")
                 }
             }
 
@@ -47,6 +49,7 @@ class ProductsViewModel : ViewModel() {
                 t: Throwable
             ) {
                 uiState = ProductsUiStates.Error
+                println("=================== Error is ${t}")
             }
         })
     }

@@ -23,7 +23,7 @@ data class ProductItem(
     val stock: Int,
     val weight: Double,
     val color: String,
-    val rating: Int,
+    val rating: Double,
     val reviewsCount: Int,
     val discountPercentage: Int,
     val sellerId: String,
