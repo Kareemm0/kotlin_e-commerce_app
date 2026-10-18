@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.kotline_commerceapplication.App.Routes
 import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Extensions.H
 import com.example.kotline_commerceapplication.Core.Utils.AppColors
@@ -146,6 +148,7 @@ fun SignUpScreen(
 
         30.H
         CustomAppButton(onClick = {
+
             isFirstNameError =
                 if (firstName.isBlank()) {
                     "First Name is required"
@@ -170,6 +173,8 @@ fun SignUpScreen(
                 } else {
                     ""
                 }
+
+            controller.navigate(Routes.Verification.onVerificationRoute(email) )
 
 
         }, text = "Sign Up ", modifier = Modifier.fillMaxWidth())

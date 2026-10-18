@@ -49,7 +49,7 @@ class ProductsViewModel : ViewModel() {
                 t: Throwable
             ) {
                 uiState = ProductsUiStates.Error
-                println("=================== Error is ${t}")
+                println("=================== Error is $t")
             }
         })
     }

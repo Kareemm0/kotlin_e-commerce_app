@@ -12,5 +12,10 @@ sealed class Routes(val route: String) {
     object Favorite: Routes("FavoriteScreen")
     object Settings: Routes("SettingsScreen")
     object Cart: Routes("CartScreen")
+    object Verification : Routes("VerificationScreen/{email}"){
+        fun  onVerificationRoute(email: String): String{
+            return "VerificationScreen/${android.net.Uri.encode(email)}"
+        }
+    }
 
 }

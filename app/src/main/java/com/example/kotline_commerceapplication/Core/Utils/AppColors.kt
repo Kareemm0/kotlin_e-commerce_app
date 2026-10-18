@@ -1,5 +1,6 @@
 package com.example.kotline_commerceapplication.Core.Utils
 
+import android.provider.CalendarContract
 import androidx.compose.ui.graphics.Color
 
 object AppColors {
@@ -10,4 +11,6 @@ object AppColors {
     val unSelectedItem = Color(0xFF8FA3BF).copy(alpha = 0.5f);
     val red = Color(0xFFE24444);
     val darkWhite = Color(0xFFF5F5F5);
+
+    val black = Color.Black
 }
