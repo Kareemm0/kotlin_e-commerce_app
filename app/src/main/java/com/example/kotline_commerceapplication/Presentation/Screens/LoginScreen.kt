@@ -1,6 +1,7 @@
 package com.example.kotline_commerceapplication.Presentation.Screens
 
 import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,7 @@ import com.example.kotline_commerceapplication.Presentation.component.CustomAuth
 import com.example.kotline_commerceapplication.Presentation.component.CustomTextFormFiled
 import com.example.kotline_commerceapplication.R
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun LoginScreen(
@@ -48,10 +50,13 @@ fun LoginScreen(
     val viewModel : AuthViewModel = viewModel()
     var loginState = viewModel.loginState
     val loginStateValue by loginState.collectAsState()
-
+    val context = LocalContext.current
     LaunchedEffect(loginStateValue) {
+
         if (loginStateValue is AuthState.AuthSuccessState){
             println("  =========== Login Function is Work Well and Run ========")
+
+            Toast.makeText(context ,"Login Successfully" ,  Toast.LENGTH_SHORT ).show()
         }
     }
     Column(
