@@ -42,7 +42,7 @@ fun CustomTextFormFiled(
 
             ),
             value = value,
-            onValueChange = { onValueChange(it) },
+            onValueChange = onValueChange,
             modifier = modifier,
             suffix = suffix,
             prefix = prefix,

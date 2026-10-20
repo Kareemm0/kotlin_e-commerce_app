@@ -5,10 +5,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,7 +27,9 @@ fun CustomAppButton(
     text: String,
     modifier: Modifier ,
     textColor: Color = AppColors.whiteColor ,
-    containerColor: Color = AppColors.primaryColor
+    containerColor: Color = AppColors.primaryColor ,
+    enable: Boolean = true,
+    isLoading : Boolean = true
 ) {
 
     Button(
@@ -36,11 +40,18 @@ fun CustomAppButton(
             containerColor
         ),
         onClick = onClick,
-        enabled = true,
+        enabled = enable,
     ) {
-        Text(
-            text = text,
-            color = textColor, fontSize = 18.sp, fontWeight = FontWeight.W700,
-        )
+        if (isLoading) {
+            Text(
+                text = text,
+                color = textColor, fontSize = 18.sp, fontWeight = FontWeight.W700,
+            )
+        }else{
+            CircularProgressIndicator(
+                modifier = Modifier.size(20.dp),
+                strokeWidth = 2.dp
+            )
+        }
     }
 }
