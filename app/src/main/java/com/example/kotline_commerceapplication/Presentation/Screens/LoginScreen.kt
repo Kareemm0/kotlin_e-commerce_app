@@ -98,9 +98,7 @@ fun LoginScreen(
         )
         16.H
         /// Password Felid
-
         CustomTextFormFiled(
-
             password,
             onValueChange = { password = it
                 println("Password length: ${it.length}")},

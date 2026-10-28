@@ -1,6 +1,7 @@
 package com.example.kotline_commerceapplication.Presentation.Screens
 
 import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,17 +12,25 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.kotline_commerceapplication.App.Routes
 import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Extensions.H
+import com.example.kotline_commerceapplication.Core.Inputs.RegisterInput
 import com.example.kotline_commerceapplication.Core.Utils.AppColors
+import com.example.kotline_commerceapplication.Presentation.ViewModel.AuthViewModel.AuthState
+import com.example.kotline_commerceapplication.Presentation.ViewModel.AuthViewModel.AuthViewModel
 import com.example.kotline_commerceapplication.Presentation.component.AuthHeaderText
 import com.example.kotline_commerceapplication.Presentation.component.CustomAuthText
 import com.example.kotline_commerceapplication.Presentation.component.CustomTextFormFiled
@@ -39,6 +48,23 @@ fun SignUpScreen(
     var isPasswordError by remember { mutableStateOf("") }
     var isFirstNameError by remember { mutableStateOf("") }
     var isLastNameError by remember { mutableStateOf("") }
+    val registerViewModel: AuthViewModel  = viewModel()
+    val registerStateValue by registerViewModel.registerState.collectAsState()
+    val isInputValid : Boolean = isFirstNameError.isEmpty() && isLastNameError.isEmpty() && isEmailError.isEmpty() && isPasswordError.isEmpty()
+    val context = LocalContext.current
+
+    LaunchedEffect(registerStateValue) {
+        if(registerStateValue is AuthState.AuthSuccessState){
+            Toast.makeText(context , "Register Successfully" , Toast.LENGTH_SHORT).show()
+            controller.navigate(Routes.Verification.onVerificationRoute(email))
+        }
+        else if (registerStateValue is AuthState.AuthFailureState){
+            Toast.makeText(
+                context ,
+                "Register Failed" ,
+                Toast.LENGTH_SHORT).show()
+        }
+    }
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -104,7 +130,6 @@ fun SignUpScreen(
                 }
 
             )
-
         }
         16.H
         /// Email Field
@@ -127,7 +152,7 @@ fun SignUpScreen(
         16.H
         /// Password Felid
         CustomTextFormFiled(
-            isPassword = false,
+            isPassword = true,
             value = password,
             onValueChange = { password = it },
             placeholder = {
@@ -141,14 +166,10 @@ fun SignUpScreen(
                         color = AppColors.red
                     )
                 }
-            }
-
+            } ,
         )
-
-
         30.H
         CustomAppButton(onClick = {
-
             isFirstNameError =
                 if (firstName.isBlank()) {
                     "First Name is required"
@@ -173,13 +194,21 @@ fun SignUpScreen(
                 } else {
                     ""
                 }
-
-            controller.navigate(Routes.Verification.onVerificationRoute(email) )
-
-
-        }, text = "Sign Up ", modifier = Modifier.fillMaxWidth())
+            if (isInputValid){
+                registerViewModel.register(
+                    RegisterInput(
+                        firstName = firstName ,
+                        lastName = lastName ,
+                        email = email ,
+                        password = password
+                    )
+                )
+            }
+        }, text = "Sign Up ", modifier = Modifier.fillMaxWidth() ,
+            enable = registerStateValue !is AuthState.AuthLoadingState ,
+            isLoading = registerStateValue !is AuthState.AuthLoadingState
+            )
         30.H
         CustomAuthText(isLogin = false, navigatorController = controller)
     }
-
 }

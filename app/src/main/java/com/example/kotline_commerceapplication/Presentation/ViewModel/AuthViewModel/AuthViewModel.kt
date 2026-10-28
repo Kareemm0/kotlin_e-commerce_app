@@ -30,26 +30,48 @@ class AuthViewModel : ViewModel() {
     }
 
   private  val _loginState = MutableStateFlow<AuthState>(AuthState.AuthInitState)
+    private val _registerState = MutableStateFlow<AuthState>(AuthState.AuthInitState)
 
     var loginState = _loginState.asStateFlow()
+    var registerState  = _registerState.asStateFlow()
     fun register(
         registerInput: RegisterInput
     ) {
-        authApiService.register(registerInput).enqueue(object : Callback<RegisterModel> {
-            override fun onResponse(
-                p0: Call<RegisterModel?>,
-                p1: Response<RegisterModel?>
-            ) {
+      viewModelScope.launch {
+          _registerState.value = AuthState.AuthLoadingState
+          if(registerInput.email.isNotEmpty() && registerInput.password.isNotEmpty()){
+              authApiService.register(registerInput).enqueue(object : Callback<RegisterModel> {
+                  override fun onResponse(
+                      call: Call<RegisterModel?>,
+                      response: Response<RegisterModel?>
+                  ) {
+                      if (response.isSuccessful){
+                          val responseData = response.body()
+                          println( "============================================================== $responseData")
+                          _registerState.value = AuthState.AuthSuccessState
 
-            }
+                      }
+                      else {
+                          _registerState.value = AuthState.AuthFailureState
+                      }
+                  }
 
-            override fun onFailure(
-                p0: Call<RegisterModel?>,
-                p1: Throwable
-            ) {
-                TODO("Not yet implemented")
-            }
-        })
+                  override fun onFailure(
+                      p0: Call<RegisterModel?>,
+                      p1: Throwable
+                  ) {
+                 //TODO("Not yet implemented")
+                      _registerState.value = AuthState.AuthFailureState
+                  }
+              })
+
+
+          }
+          else {
+              println("Error In View Model ")
+
+          }
+      }
     }
 
 
