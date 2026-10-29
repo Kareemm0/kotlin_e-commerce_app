@@ -65,24 +65,21 @@ fun VerificationOTPScreen(
         }
         isClickable = true
 
-       when (val state = resendOtpState){
-           is OTPState.ResendOTPSuccessState -> {
-           Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
-
-
-           }else -> {}
-       }
+        when (val state = resendOtpState) {
+            is OTPState.ResendOTPSuccessState -> {
+                Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
+            }
+            else -> {}
+        }
     }
     Column(
         modifier = Modifier.padding(vertical = 40.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-
         AuthHeaderText(title = "Verification Code ")
         Text("Enter OTP Send TO $email")
         BasicTextField(
             state = otpState,
-
             modifier = Modifier.semantics {
                 contentType = ContentType.SmsOtpCode
             },
@@ -108,14 +105,15 @@ fun VerificationOTPScreen(
         )
         if (resendOtpState is OTPState.ResendOTPLoadingState) {
             CircularProgressIndicator(
-                modifier = Modifier.size(16.dp) .align(Alignment.End),
+                modifier = Modifier
+                    .size(16.dp)
+                    .align(Alignment.End),
                 strokeWidth = 2.dp
             )
-
             Text(
                 text = "Sending...",
-                        modifier = Modifier
-                        .align(Alignment.End)
+                modifier = Modifier
+                    .align(Alignment.End)
             )
         } else {
             Text(
@@ -125,18 +123,15 @@ fun VerificationOTPScreen(
                     .align(Alignment.End)
                     .clickable(enabled = isClickable) {
 
-                            if (email.isEmpty()) {
-                                Toast.makeText(context, "Invalid Email", Toast.LENGTH_LONG).show()
+                        if (email.isEmpty()) {
+                            Toast.makeText(context, "Invalid Email", Toast.LENGTH_LONG).show()
 
-                            } else {
-                                otpViewModel.resendOTP(email = email)
-                            }
-
+                        } else {
+                            otpViewModel.resendOTP(email = email)
+                        }
                     }
-
             )
         }
-
         CustomAppButton(
             onClick = {},
             text = "Verify",
