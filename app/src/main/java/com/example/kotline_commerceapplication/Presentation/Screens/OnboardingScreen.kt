@@ -25,7 +25,7 @@ import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Component.CustomAppImage
 import com.example.kotline_commerceapplication.Core.Extensions.H
 import com.example.kotline_commerceapplication.Core.Utils.AppColors
-import com.example.kotline_commerceapplication.Data.OnBoardingModel
+import com.example.kotline_commerceapplication.Domain.Models.OnBoardingModel
 import com.example.kotline_commerceapplication.Presentation.component.IndicatorComponent
 import kotlinx.coroutines.launch
 

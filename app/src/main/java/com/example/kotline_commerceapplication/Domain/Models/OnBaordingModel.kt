@@ -1,4 +1,4 @@
-package com.example.kotline_commerceapplication.Data
+package com.example.kotline_commerceapplication.Domain.Models
 
 import com.example.kotline_commerceapplication.R
 

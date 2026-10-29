@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.kotline_commerceapplication.Data.OnBoardingModel
 import com.example.kotline_commerceapplication.Presentation.Layout.MainScreen
 import com.example.kotline_commerceapplication.Presentation.Screens.ForgetPasswordScreen
 import com.example.kotline_commerceapplication.Presentation.Screens.LoginScreen

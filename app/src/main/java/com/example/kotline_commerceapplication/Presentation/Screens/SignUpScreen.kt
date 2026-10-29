@@ -204,6 +204,7 @@ fun SignUpScreen(
                     )
                 )
             }
+            controller.navigate(Routes.Verification.onVerificationRoute(email))
         }, text = "Sign Up ", modifier = Modifier.fillMaxWidth() ,
             enable = registerStateValue !is AuthState.AuthLoadingState ,
             isLoading = registerStateValue !is AuthState.AuthLoadingState
