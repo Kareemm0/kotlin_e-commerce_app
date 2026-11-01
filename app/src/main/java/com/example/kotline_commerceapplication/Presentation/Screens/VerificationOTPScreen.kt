@@ -34,7 +34,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.kotline_commerceapplication.App.Routes
 import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
+import com.example.kotline_commerceapplication.Core.Inputs.VerifyOTPInput
 import com.example.kotline_commerceapplication.Core.Utils.AppColors
 import com.example.kotline_commerceapplication.Presentation.ViewModel.OTPViewModel.OTPState
 import com.example.kotline_commerceapplication.Presentation.ViewModel.OTPViewModel.OTPViewModel
@@ -45,7 +49,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun VerificationOTPScreen(
-    email: String
+    email: String,
+    controller: NavController
 ) {
     val otpState = rememberTextFieldState()
     val duration: Int = 60
@@ -53,6 +58,7 @@ fun VerificationOTPScreen(
     var isClickable by remember { mutableStateOf(false) }
     val otpViewModel: OTPViewModel = viewModel()
     val resendOtpState by otpViewModel.resendOTPState.collectAsState()
+    val verifyOTPState by otpViewModel.verifyOTPState.collectAsState()
     val context = LocalContext.current
 
     // Resend OTP Counter
@@ -68,6 +74,17 @@ fun VerificationOTPScreen(
         when (val state = resendOtpState) {
             is OTPState.ResendOTPSuccessState -> {
                 Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
+            }
+
+
+
+            else -> {}
+        }
+
+        when (val state = verifyOTPState){
+            is OTPState.VerifyOTPSuccessState -> {
+                Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
+                controller.navigate(Routes.Login.route)
             }
             else -> {}
         }
@@ -133,7 +150,16 @@ fun VerificationOTPScreen(
             )
         }
         CustomAppButton(
-            onClick = {},
+            enable = verifyOTPState !is OTPState.VerifyOTPLoadingState,
+            isLoading = verifyOTPState !is OTPState.VerifyOTPLoadingState,
+            onClick = {
+                otpViewModel.verifyOTP(
+                    VerifyOTPInput(
+                        email = email,
+                        otp = otpState.text.toString()
+                    )
+                )
+            },
             text = "Verify",
             modifier = Modifier.fillMaxWidth()
         )
@@ -144,7 +170,7 @@ fun VerificationOTPScreen(
 @Composable
 @Preview
 fun VerificationOTPScreenPreview() {
-    VerificationOTPScreen("kareem@gmail.com")
+    VerificationOTPScreen("kareem@gmail.com" , controller = rememberNavController())
 }
 
 

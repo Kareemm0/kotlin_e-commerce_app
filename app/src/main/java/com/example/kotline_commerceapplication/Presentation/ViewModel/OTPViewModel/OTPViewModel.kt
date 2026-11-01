@@ -3,6 +3,7 @@ package com.example.kotline_commerceapplication.Presentation.ViewModel.OTPViewMo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotline_commerceapplication.Core.Inputs.ResendOTPInput
+import com.example.kotline_commerceapplication.Core.Inputs.VerifyOTPInput
 import com.example.kotline_commerceapplication.Core.Network.RetrofitService
 import com.example.kotline_commerceapplication.Data.DataSource.OTPApiService
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +23,10 @@ class OTPViewModel : ViewModel() {
     }
 
     private val _resendOTPState = MutableStateFlow<OTPState>(OTPState.OTPInitState)
+    private val _verifyOTPState = MutableStateFlow<OTPState>(OTPState.OTPInitState)
     var resendOTPState = _resendOTPState.asStateFlow()
-    
+    var verifyOTPState = _verifyOTPState.asStateFlow()
+
     fun resendOTP(
         email: String
     ) {
@@ -58,6 +61,41 @@ class OTPViewModel : ViewModel() {
                 }
             })
 
+        }
+    }
+
+
+    fun verifyOTP(
+        body: VerifyOTPInput
+    ) {
+        _verifyOTPState.value = OTPState.VerifyOTPLoadingState
+        viewModelScope.launch {
+
+            otpService.verifyOTP(
+                body = body
+            ).enqueue(
+                object : Callback<String> {
+                    override fun onResponse(
+                        call: Call<String?>,
+                        response: Response<String?>
+                    ) {
+                        if (response.isSuccessful) {
+                            val message: String = response.body().toString()
+                            _verifyOTPState.value =
+                                OTPState.VerifyOTPSuccessState(message)
+                            println("===============================$message")
+                        } else {
+                            _verifyOTPState.value = OTPState.VerifyOTPFailureState
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<String?>,
+                        t: Throwable
+                    ) {
+                        println("====================$t")
+                    }
+                })
         }
     }
 

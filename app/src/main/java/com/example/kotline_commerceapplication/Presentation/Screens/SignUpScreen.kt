@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.kotline_commerceapplication.App.Routes
@@ -48,21 +46,22 @@ fun SignUpScreen(
     var isPasswordError by remember { mutableStateOf("") }
     var isFirstNameError by remember { mutableStateOf("") }
     var isLastNameError by remember { mutableStateOf("") }
-    val registerViewModel: AuthViewModel  = viewModel()
+    val registerViewModel: AuthViewModel = viewModel()
     val registerStateValue by registerViewModel.registerState.collectAsState()
-    val isInputValid : Boolean = isFirstNameError.isEmpty() && isLastNameError.isEmpty() && isEmailError.isEmpty() && isPasswordError.isEmpty()
+    val isInputValid: Boolean =
+        isFirstNameError.isEmpty() && isLastNameError.isEmpty() && isEmailError.isEmpty() && isPasswordError.isEmpty()
     val context = LocalContext.current
 
     LaunchedEffect(registerStateValue) {
-        if(registerStateValue is AuthState.AuthSuccessState){
-            Toast.makeText(context , "Register Successfully" , Toast.LENGTH_SHORT).show()
+        if (registerStateValue is AuthState.AuthSuccessState) {
+            Toast.makeText(context, "Register Successfully", Toast.LENGTH_SHORT).show()
             controller.navigate(Routes.Verification.onVerificationRoute(email))
-        }
-        else if (registerStateValue is AuthState.AuthFailureState){
+        } else if (registerStateValue is AuthState.AuthFailureState) {
             Toast.makeText(
-                context ,
-                "Register Failed" ,
-                Toast.LENGTH_SHORT).show()
+                context,
+                "Register Failed",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -166,49 +165,50 @@ fun SignUpScreen(
                         color = AppColors.red
                     )
                 }
-            } ,
+            },
         )
         30.H
-        CustomAppButton(onClick = {
-            isFirstNameError =
-                if (firstName.isBlank()) {
-                    "First Name is required"
-                } else {
-                    ""
-                }
-            isLastNameError =
-                if (lastName.isBlank()) {
-                    "Last Name is required"
-                } else {
-                    ""
-                }
-            isEmailError =
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    "Email is required"
-                } else {
-                    ""
-                }
-            isPasswordError =
-                if (password.length < 8) {
-                    "Password must be at least 8 characters"
-                } else {
-                    ""
-                }
-            if (isInputValid){
-                registerViewModel.register(
-                    RegisterInput(
-                        firstName = firstName ,
-                        lastName = lastName ,
-                        email = email ,
-                        password = password
+        CustomAppButton(
+            onClick = {
+                isFirstNameError =
+                    if (firstName.isBlank()) {
+                        "First Name is required"
+                    } else {
+                        ""
+                    }
+                isLastNameError =
+                    if (lastName.isBlank()) {
+                        "Last Name is required"
+                    } else {
+                        ""
+                    }
+                isEmailError =
+                    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        "Email is required"
+                    } else {
+                        ""
+                    }
+                isPasswordError =
+                    if (password.length < 8) {
+                        "Password must be at least 8 characters"
+                    } else {
+                        ""
+                    }
+                if (isInputValid) {
+                    registerViewModel.register(
+                        RegisterInput(
+                            firstName = firstName,
+                            lastName = lastName,
+                            email = email,
+                            password = password
+                        )
                     )
-                )
-            }
-            controller.navigate(Routes.Verification.onVerificationRoute(email))
-        }, text = "Sign Up ", modifier = Modifier.fillMaxWidth() ,
-            enable = registerStateValue !is AuthState.AuthLoadingState ,
+                }
+
+            }, text = "Sign Up ", modifier = Modifier.fillMaxWidth(),
+            enable = registerStateValue !is AuthState.AuthLoadingState,
             isLoading = registerStateValue !is AuthState.AuthLoadingState
-            )
+        )
         30.H
         CustomAuthText(isLogin = false, navigatorController = controller)
     }

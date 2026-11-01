@@ -6,4 +6,10 @@ sealed interface OTPState {
     data class ResendOTPSuccessState(val message: String) : OTPState
     data object ResendOTPFailureState : OTPState
 
+
+    data object VerifyOTPLoadingState : OTPState
+
+    data class VerifyOTPSuccessState(var message: String) : OTPState
+
+    data object VerifyOTPFailureState : OTPState
 }

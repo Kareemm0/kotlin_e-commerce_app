@@ -33,6 +33,6 @@ fun AppRouter(){
             }
         )) { email ->
 val email = email.arguments?.getString("email")
-            VerificationOTPScreen(email = email.orEmpty()) }
+            VerificationOTPScreen(email = email.orEmpty() , navController) }
     }
 }
