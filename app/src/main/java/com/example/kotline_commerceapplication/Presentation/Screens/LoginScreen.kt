@@ -14,11 +14,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,8 +37,6 @@ import com.example.kotline_commerceapplication.Presentation.component.AuthHeader
 import com.example.kotline_commerceapplication.Presentation.component.CustomAuthText
 import com.example.kotline_commerceapplication.Presentation.component.CustomTextFormFiled
 import com.example.kotline_commerceapplication.R
-import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun LoginScreen(
@@ -47,22 +47,23 @@ fun LoginScreen(
     var isEmailError by remember { mutableStateOf("") }
     var isPasswordError by remember { mutableStateOf("") }
     val scroll = rememberScrollState()
-    val viewModel : AuthViewModel = viewModel()
+    val viewModel: AuthViewModel = viewModel()
     var loginState = viewModel.loginState
     val loginStateValue by loginState.collectAsState()
     val context = LocalContext.current
     LaunchedEffect(loginStateValue) {
 
-        if (loginStateValue is AuthState.AuthSuccessState){
+        if (loginStateValue is AuthState.AuthSuccessState) {
             println("  =========== Login Function is Work Well and Run ========")
-
-            Toast.makeText(context ,"Login Successfully" ,  Toast.LENGTH_SHORT ).show()
+            Toast.makeText(context, "Login Successfully", Toast.LENGTH_SHORT).show()
+            controller.navigate(Routes.Main.route)
         }
     }
     Column(
         verticalArrangement = Arrangement.Center,
 
-        modifier = Modifier.verticalScroll(scroll)
+        modifier = Modifier
+            .verticalScroll(scroll)
             .fillMaxSize()
             .fillMaxWidth()
             .padding(
@@ -100,8 +101,10 @@ fun LoginScreen(
         /// Password Felid
         CustomTextFormFiled(
             password,
-            onValueChange = { password = it
-                println("Password length: ${it.length}")},
+            onValueChange = {
+                password = it
+                println("Password length: ${it.length}")
+            },
             placeholder = {
                 Text("Enter Your Password")
             },
@@ -129,30 +132,31 @@ fun LoginScreen(
         )
         30.H
         CustomAppButton(
-            isLoading = loginStateValue !is AuthState.AuthLoadingState ,
+            isLoading = loginStateValue !is AuthState.AuthLoadingState,
             enable = loginStateValue !is AuthState.AuthLoadingState,
-             onClick = {
-            isEmailError = if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                "Email is required"
-            } else {
-                ""
-            }
-            isPasswordError = if (password.length < 8) {
-                "Password must be at least 8 characters"
-            } else {
-                ""
-            }
+            onClick = {
+                isEmailError = if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    "Email is required"
+                } else {
+                    ""
+                }
+                isPasswordError = if (password.length < 8) {
+                    "Password must be at least 8 characters"
+                } else {
+                    ""
+                }
 
-            if (isEmailError.isEmpty() && isPasswordError.isEmpty()) {
-                println(" =================== Login Press On Button")
-                viewModel.login(
-                    email , password
-                )
-            }
+                if (isEmailError.isEmpty() && isPasswordError.isEmpty()) {
+                    println(" =================== Login Press On Button")
+                    viewModel.login(
+                        email, password
+                    )
+                }
 
-          //  controller.navigate(Routes.Main.route)
+                //
 
-        }, text = "Login", modifier = Modifier.fillMaxWidth())
+            }, text = "Login", modifier = Modifier.fillMaxWidth()
+        )
         16.H
         CustomAuthText(navigatorController = controller)
 

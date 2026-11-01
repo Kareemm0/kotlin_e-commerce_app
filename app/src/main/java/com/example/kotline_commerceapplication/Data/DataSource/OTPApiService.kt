@@ -14,7 +14,7 @@ interface OTPApiService {
     ): Call<String>
 
 
-    @POST("/api/auth/validate-otp")
+    @POST("auth/validate-otp")
     fun verifyOTP(
         @Body body: VerifyOTPInput
     ): Call<String>

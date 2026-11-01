@@ -2,18 +2,18 @@ package com.example.kotline_commerceapplication.Presentation.ViewModel.AuthViewM
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.kotline_commerceapplication.Core.Inputs.LoginInput
 import com.example.kotline_commerceapplication.Core.Inputs.RegisterInput
 import com.example.kotline_commerceapplication.Core.Network.RetrofitService
 import com.example.kotline_commerceapplication.Data.DataSource.AuthApiService
+import com.example.kotline_commerceapplication.Domain.Models.LoginModel
 import com.example.kotline_commerceapplication.Domain.Models.RegisterModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.time.Duration.Companion.milliseconds
 
 
 class AuthViewModel : ViewModel() {
@@ -56,7 +56,7 @@ class AuthViewModel : ViewModel() {
                         p0: Call<RegisterModel?>,
                         p1: Throwable
                     ) {
-                        //TODO("Not yet implemented")
+
                         _registerState.value = AuthState.AuthFailureState
                     }
                 })
@@ -76,12 +76,33 @@ class AuthViewModel : ViewModel() {
     ) {
         viewModelScope.launch {
             _loginState.value = AuthState.AuthLoadingState
-            delay(2000.milliseconds)
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                _loginState.value = AuthState.AuthSuccessState
-            } else {
-                _loginState.value = AuthState.AuthFailureState
-            }
+            authApiService.login(
+                body = LoginInput(
+                    email, password
+                )
+            ).enqueue(
+                object : Callback<LoginModel> {
+                    override fun onResponse(
+                        call: Call<LoginModel?>,
+                        response: Response<LoginModel?>
+                    ) {
+                        if (response.isSuccessful) {
+                            val responseData = response.body()
+                            println("============================================================== $responseData")
+                            _loginState.value = AuthState.AuthSuccessState
+                        }
+                    }
+
+                    override fun onFailure(
+                        call: Call<LoginModel?>,
+                        t: Throwable
+                    ) {
+                        println("===========$t")
+                        _loginState.value = AuthState.AuthFailureState
+                    }
+                })
+
+
         }
     }
 
