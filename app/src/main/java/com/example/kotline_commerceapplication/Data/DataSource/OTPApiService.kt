@@ -18,4 +18,9 @@ interface OTPApiService {
     fun verifyOTP(
         @Body body: VerifyOTPInput
     ): Call<String>
+
+    @POST("auth/verify-email")
+    fun verifyEmail(
+        @Body body: VerifyOTPInput
+    ): Call<String>
 }

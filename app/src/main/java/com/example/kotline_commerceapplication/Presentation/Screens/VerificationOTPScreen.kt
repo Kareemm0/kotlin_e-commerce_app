@@ -77,15 +77,20 @@ fun VerificationOTPScreen(
             }
 
 
-
             else -> {}
         }
 
-        when (val state = verifyOTPState){
+        when (val state = verifyOTPState) {
             is OTPState.VerifyOTPSuccessState -> {
                 Toast.makeText(context, state.message, Toast.LENGTH_LONG).show()
+                otpViewModel.verifyEmail(
+                    VerifyOTPInput(
+                        email, otpState.text.toString()
+                    )
+                )
                 controller.navigate(Routes.Login.route)
             }
+
             else -> {}
         }
     }
@@ -170,7 +175,7 @@ fun VerificationOTPScreen(
 @Composable
 @Preview
 fun VerificationOTPScreenPreview() {
-    VerificationOTPScreen("kareem@gmail.com" , controller = rememberNavController())
+    VerificationOTPScreen("kareem@gmail.com", controller = rememberNavController())
 }
 
 

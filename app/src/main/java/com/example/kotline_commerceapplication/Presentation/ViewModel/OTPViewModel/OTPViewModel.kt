@@ -24,8 +24,11 @@ class OTPViewModel : ViewModel() {
 
     private val _resendOTPState = MutableStateFlow<OTPState>(OTPState.OTPInitState)
     private val _verifyOTPState = MutableStateFlow<OTPState>(OTPState.OTPInitState)
+    private val _verifyEmailState = MutableStateFlow<OTPState>(OTPState.OTPInitState)
     var resendOTPState = _resendOTPState.asStateFlow()
     var verifyOTPState = _verifyOTPState.asStateFlow()
+
+    var verifyEmailState = _verifyEmailState.asStateFlow()
 
     fun resendOTP(
         email: String
@@ -100,4 +103,29 @@ class OTPViewModel : ViewModel() {
     }
 
 
+    fun verifyEmail(
+        body: VerifyOTPInput
+    ) {
+        viewModelScope.launch {
+            _verifyEmailState.value = OTPState.VerifyEmailLoadingState
+            otpService.verifyEmail(
+                body
+            ).enqueue(
+                object : Callback<String> {
+                    override fun onResponse(call: Call<String?>, response: Response<String?>) {
+                        if (response.isSuccessful) {
+                            _verifyEmailState.value = OTPState.VerifyEmailSuccessState
+                        } else {
+                            _verifyEmailState.value = OTPState.VerifyEmailFailureState
+                        }
+                    }
+
+                    override fun onFailure(call: Call<String?>, t: Throwable) {
+                        _verifyEmailState.value = OTPState.VerifyEmailFailureState
+
+                    }
+                }
+            )
+        }
+    }
 }

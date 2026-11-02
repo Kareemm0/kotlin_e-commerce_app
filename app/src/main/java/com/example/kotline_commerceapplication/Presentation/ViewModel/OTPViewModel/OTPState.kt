@@ -12,4 +12,9 @@ sealed interface OTPState {
     data class VerifyOTPSuccessState(var message: String) : OTPState
 
     data object VerifyOTPFailureState : OTPState
+
+
+    data object VerifyEmailLoadingState : OTPState
+    data object VerifyEmailSuccessState : OTPState
+    data object VerifyEmailFailureState : OTPState
 }
