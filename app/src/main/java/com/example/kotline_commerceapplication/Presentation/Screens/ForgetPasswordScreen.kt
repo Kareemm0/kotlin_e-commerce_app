@@ -1,5 +1,6 @@
 package com.example.kotline_commerceapplication.Presentation.Screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,17 +9,23 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.kotline_commerceapplication.App.Routes
 import com.example.kotline_commerceapplication.Core.Component.CustomAppButton
 import com.example.kotline_commerceapplication.Core.Component.CustomAppImage
 import com.example.kotline_commerceapplication.Core.Extensions.H
+import com.example.kotline_commerceapplication.Presentation.ViewModel.ForgetpasswordVeiwModel.ForgetPasswordState
+import com.example.kotline_commerceapplication.Presentation.ViewModel.ForgetpasswordVeiwModel.ForgetPasswordViewModel
 import com.example.kotline_commerceapplication.Presentation.component.AuthHeaderText
 import com.example.kotline_commerceapplication.Presentation.component.CustomTextFormFiled
 import com.example.kotline_commerceapplication.R
@@ -29,6 +36,23 @@ fun ForgetPasswordScreen(
 ) {
     var email by remember { mutableStateOf("") }
     var isEmailError by remember { mutableStateOf("") }
+    val viewModel: ForgetPasswordViewModel = viewModel()
+    val forgetPasswordState by viewModel.forgetPasswordState.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(forgetPasswordState) {
+        when (val state = forgetPasswordState) {
+            is ForgetPasswordState.ForgetPasswordSuccessState -> {
+                navController.navigate(Routes.Verification.route)
+                Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
+            }
+
+            else -> {
+                Toast.makeText(context, "SomeThing Went Wrong Please Try Again", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier
@@ -56,11 +80,17 @@ fun ForgetPasswordScreen(
                 Text("Enter Your Email Address")
             },
             isError = isEmailError.isNotEmpty(),
-            
+
             )
         30.H
-        CustomAppButton({
-            navController.navigate(Routes.ResetPassword.route)
-        }, text = "Submit", modifier = Modifier.fillMaxWidth())
+        CustomAppButton(
+            {
+                if (isEmailError.isEmpty()) {
+                    viewModel.forgetPassword(email)
+                }
+            }, text = "Submit", modifier = Modifier.fillMaxWidth(),
+            enable = forgetPasswordState !is ForgetPasswordState.ForgetPasswordLoadingState,
+            isLoading = forgetPasswordState !is ForgetPasswordState.ForgetPasswordLoadingState
+        )
     }
 }
